@@ -17,8 +17,10 @@ import ProductsImage from 'assets/products.svg';
 import RecommendedImage from 'assets/recommended.svg';
 import ShopImage from 'assets/shops.svg';
 import Products from 'data.json';
+import { useHistory } from 'react-router-dom';
 
 const Home = (): JSX.Element => {
+	const history = useHistory();
 	const limit = 6;
 	const [start, setStart] = useState(0);
 	const [end, setEnd] = useState(limit);
@@ -105,8 +107,13 @@ const Home = (): JSX.Element => {
 						</div>
 
 						<div className={styles.container__main__details__container}>
-							{allProducts.map(({ image, description, stock, price }, index) => (
-								<div className={styles.container__main__details__container__item} key={index}>
+							{allProducts.map(({ image, description, stock, price, id }, index) => (
+								<div
+									className={styles.container__main__details__container__item}
+									key={index}
+									onClick={() => {
+										history.push(`/product/${id}`);
+									}}>
 									<img src={image} className={styles.container__main__details__container__item__image} alt='product' />
 									<p className={styles.container__main__details__container__item__description}>{description}</p>
 

@@ -1,6 +1,6 @@
 export const ROUTES = {
     BUY: '/buy',
     CART: '/cart',
-    SINGLE__CART: '/cart/:id',
+    PRODUCT: '/product/:id',
     SUCCESS: '/success'
 }
