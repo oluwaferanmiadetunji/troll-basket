@@ -26,11 +26,34 @@ const Home = (): JSX.Element => {
 	const [start, setStart] = useState(0);
 	const [end, setEnd] = useState(limit);
 
+	const [value, setValue] = useState('');
+
 	const { products, cart } = useSelector((state: any) => state);
+
+	const [isEmpty, setIsEmpty] = useState(products.length > 0 ? false : true);
 
 	const [allProducts, setAllProducts] = useState(products.slice(start, end));
 
 	const [visible, setVisible] = useState(true);
+
+	const filterData = () => {
+		if (value !== '') {
+			let filteredData: any = [];
+
+			products.find((item: any) => {
+				if (item.name.includes(value) || item.description.includes(value) || item.location.includes(value)) {
+					filteredData.push(item);
+				} else {
+					setIsEmpty(true);
+				}
+				return null;
+			});
+
+			setAllProducts(filteredData);
+		} else {
+			setAllProducts(products.slice(start, end));
+		}
+	};
 
 	const getMoreData = () => {
 		if (allProducts.length === products.length) {
@@ -80,7 +103,15 @@ const Home = (): JSX.Element => {
 
 				<main className={styles.container__main}>
 					<div className={styles.container__main__search__bar}>
-						<input placeholder='Search Merchbuy' className={styles.container__main__search__bar__input} />
+						<input
+							placeholder='Search Merchbuy'
+							className={styles.container__main__search__bar__input}
+							value={value}
+							onChange={(event) => {
+								setValue(event.target.value);
+								filterData();
+							}}
+						/>
 						<SearchOutlined className={styles.container__main__search__bar__icon} />
 					</div>
 
@@ -113,29 +144,35 @@ const Home = (): JSX.Element => {
 							</div>
 						</div>
 
-						<div className={styles.container__main__details__container}>
-							{allProducts.map(({ image, description, stock, price, id }: any, index: number) => (
-								<div
-									className={styles.container__main__details__container__item}
-									key={index}
-									onClick={() => {
-										history.push(`/product/${id}`);
-									}}>
-									<img src={image} className={styles.container__main__details__container__item__image} alt='product' />
-									<p className={styles.container__main__details__container__item__description}>{description}</p>
+						{isEmpty ? (
+							<div className={styles.no__data}>No data</div>
+						) : (
+							<>
+								<div className={styles.container__main__details__container}>
+									{allProducts.map(({ image, description, stock, price, id }: any, index: number) => (
+										<div
+											className={styles.container__main__details__container__item}
+											key={index}
+											onClick={() => {
+												history.push(`/product/${id}`);
+											}}>
+											<img src={image} className={styles.container__main__details__container__item__image} alt='product' />
+											<p className={styles.container__main__details__container__item__description}>{description}</p>
 
-									<p className={styles.container__main__details__container__item__price}>&#8358; {price}</p>
+											<p className={styles.container__main__details__container__item__price}>&#8358; {price}</p>
 
-									<p className={styles.container__main__details__container__item__stock}>MOQ {stock} (pieces)</p>
+											<p className={styles.container__main__details__container__item__stock}>MOQ {stock} (pieces)</p>
+										</div>
+									))}
 								</div>
-							))}
-						</div>
 
-						{visible && (
-							<div className={styles.container__main__details__more} onClick={getMoreData}>
-								<span className={styles.container__main__details__more__text}>More</span>
-								<ArrowDownOutlined className={styles.container__main__details__more__icon} />
-							</div>
+								{visible && (
+									<div className={styles.container__main__details__more} onClick={getMoreData}>
+										<span className={styles.container__main__details__more__text}>More</span>
+										<ArrowDownOutlined className={styles.container__main__details__more__icon} />
+									</div>
+								)}
+							</>
 						)}
 					</div>
 				</main>

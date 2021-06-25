@@ -152,6 +152,16 @@
 			&__details {
 				margin: 0 0 0px 0;
 
+				.no__data {
+					height: 70px;
+					display: flex;
+					justify-content: center;
+					text-align: center;
+					align-items: center;
+					color: #627483;
+					font-size: 16px;
+				}
+
 				&__more {
 					margin: 20px auto;
 					width: 100%;
