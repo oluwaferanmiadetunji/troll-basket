@@ -18,6 +18,7 @@ import RecommendedImage from 'assets/recommended.svg';
 import ShopImage from 'assets/shops.svg';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ROUTES } from 'utils/constants';
 
 const Home = (): JSX.Element => {
 	const history = useHistory();
@@ -25,7 +26,7 @@ const Home = (): JSX.Element => {
 	const [start, setStart] = useState(0);
 	const [end, setEnd] = useState(limit);
 
-	const { products } = useSelector((state: any) => state);
+	const { products, cart } = useSelector((state: any) => state);
 
 	const [allProducts, setAllProducts] = useState(products.slice(start, end));
 
@@ -66,9 +67,12 @@ const Home = (): JSX.Element => {
 						<p className={styles.container__header__item__text}>My Orders</p>
 					</div>
 
-					<div className={clsx(styles.container__header__item)}>
+					<div className={clsx(styles.container__header__item)} onClick={() => history.push(ROUTES.CART)}>
 						<div className={styles.container__header__item__icon__container}>
 							<ShoppingCartOutlined className={styles.container__header__item__icon} style={{ color: '#2E4457' }} />
+							<div>
+								<span className={styles.container__header__item__icon__text}>{cart.length}</span>
+							</div>
 						</div>
 						<p className={styles.container__header__item__text}>Cart</p>
 					</div>
