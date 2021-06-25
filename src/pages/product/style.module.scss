@@ -1,5 +1,153 @@
-.container {
-	height: calc(100vh - 70px);
-	overflow-y: auto;
-	overflow-x: hidden;
+.product {
+	width: 100vw;
+	height: 100vh;
+	background: white;
+	overflow: hidden;
+
+	.container {
+		height: calc(100vh - 70px);
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		&__header {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 20px;
+			padding: 0 20px;
+
+			&__icon {
+				background: #edf2f7;
+				border-radius: 4px;
+				width: 25px;
+				height: 25px;
+				justify-content: center;
+				display: flex;
+				text-align: center;
+				align-items: center;
+
+				&__icon {
+					color: #0b0c0e;
+					font-size: 16;
+				}
+			}
+
+			&__cart__icon {
+				margin-left: 20px;
+				position: relative;
+
+				&__text {
+					position: absolute;
+					top: -10px;
+					right: 0;
+					background: #ee6f44;
+					border-radius: 50%;
+					padding: 2px;
+					color: white;
+					font-size: 10px;
+				}
+			}
+
+			&__text {
+				color: #212c3d;
+				font-size: 14px;
+			}
+
+			&__icons {
+				display: flex;
+				justify-content: space-between;
+			}
+		}
+
+		.details {
+			margin-top: 20px;
+
+			&__image {
+				width: 100%;
+				padding: 20px;
+
+				&__image {
+					width: 312px;
+					height: 150px;
+					margin: auto;
+				}
+			}
+
+			&__container {
+				margin-top: 0px;
+				padding: 20px;
+
+				&__name {
+					color: #212c3d;
+					font-size: 14px;
+					line-height: 21px;
+					margin-bottom: 5px;
+				}
+
+				&__description {
+					color: #627483;
+					font-size: 12px;
+					line-height: 21px;
+				}
+
+				&__price {
+					color: #212c3d;
+					font-weight: bold;
+					font-size: 16px;
+					line-height: 21px;
+
+					&__small {
+						color: #627483;
+						font-size: 12px;
+						line-height: 21px;
+					}
+				}
+			}
+		}
+	}
+
+	.footer {
+		background: #ffffff;
+		box-shadow: 0px -8px 28px rgba(0, 0, 0, 0.08);
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 60px;
+		width: 100vw;
+		display: flex;
+		justify-content: space-between;
+		padding: 10px;
+
+		.add__to__cart {
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			align-items: center;
+			height: 40px;
+			width: 100%;
+			background: #227eff;
+			border-radius: 6px;
+			color: white;
+			font-size: 14px;
+			line-height: 24px;
+			margin-right: 10px;
+		}
+
+		.wishlist {
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			align-items: center;
+			height: 40px;
+			width: 100%;
+			background: white;
+			border-radius: 6px;
+			color: #2e4457;
+			border: 1px solid #a0b1c0;
+			font-size: 14px;
+			line-height: 24px;
+			margin-left: 10px;
+		}
+	}
 }
