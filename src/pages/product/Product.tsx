@@ -1,8 +1,9 @@
 import styles from './style.module.scss';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { LeftOutlined, SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { LeftOutlined, SearchOutlined, ShoppingCartOutlined, RightOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
+import UserImage from 'assets/user.svg';
 
 const Product = () => {
 	const history = useHistory();
@@ -49,6 +50,35 @@ const Product = () => {
 						<p className={styles.details__container__price}>
 							&#8358; {price} <span className={styles.details__container__price__small}>/ piece</span>
 						</p>
+					</div>
+
+					<div className={styles.details__production__description}>
+						<p className={styles.details__production__description__text}>Product Description</p>
+						<RightOutlined className={styles.details__production__description__icon} />
+					</div>
+
+					<div className={styles.details__production__review}>
+						<div className={styles.details__production__review__header}>
+							<p className={styles.details__production__review__header__text}>Review and Ratings</p>
+							<p className={styles.details__production__review__header__view}>View All</p>
+						</div>
+
+						<div className={styles.details__production__review__rating}>
+							<span className={clsx('fa fa-star', styles.star, styles.checked)}></span>
+							<span className={clsx('fa fa-star', styles.star, styles.checked)}></span>
+							<span className={clsx('fa fa-star', styles.star, styles.checked)}></span>
+							<span className={clsx('fa fa-star', styles.star)} style={{ color: '#EEEFF2' }}></span>
+							<span className={clsx('fa fa-star', styles.star)} style={{ color: '#EEEFF2' }}></span>
+						</div>
+
+						<p className={styles.details__production__review__rating__text}>
+							This is the best product I have used in a long while and the size fits perfectly and I love the colors!!!!!
+						</p>
+
+						<div className={styles.details__production__review__user}>
+							<img src={UserImage} className={styles.details__production__review__user__image} alt='' />
+							<p className={styles.details__production__review__user__text}>Segun Arinze</p>
+						</div>
 					</div>
 				</div>
 			</main>
