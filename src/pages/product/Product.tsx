@@ -1,17 +1,40 @@
 import styles from './style.module.scss';
 import { useLocation, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { LeftOutlined, SearchOutlined, ShoppingCartOutlined, RightOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
 import UserImage from 'assets/user.svg';
+import { setCart } from '../../redux';
+import { toast } from 'react-toastify';
 
 const Product = () => {
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	const productId = useLocation().pathname.split('/product/')[1];
 	const { products, cart } = useSelector((state: any) => state);
 
 	const { image, name, description, id, price, location, stock } = products.find((item: any) => item.id === productId);
+
+	const addToCart = () => {
+		toast.success('Item added to cart');
+
+		const item = cart.find((item: any) => item.id === productId);
+
+		if (item) {
+			let newCart = [...cart];
+			const positionOfItem = newCart.indexOf(item);
+			const cartItem = newCart[positionOfItem];
+			const { qty } = cartItem;
+
+			newCart[positionOfItem] = { ...cartItem, qty: qty + 1 };
+
+			dispatch(setCart(newCart));
+		} else {
+			const newCart = [...cart, { image, name, description, id, price, location, stock, qty: 1 }];
+			dispatch(setCart(newCart));
+		}
+	};
 
 	return (
 		<div className={styles.product}>
@@ -84,7 +107,9 @@ const Product = () => {
 			</main>
 
 			<footer className={styles.footer}>
-				<div className={styles.add__to__cart}>Add to Cart</div>
+				<div className={styles.add__to__cart} onClick={addToCart}>
+					Add to Cart
+				</div>
 
 				<div className={styles.wishlist}>Wishlist</div>
 			</footer>
