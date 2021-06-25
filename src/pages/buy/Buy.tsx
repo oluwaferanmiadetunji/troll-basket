@@ -16,26 +16,29 @@ import CategoriesImage from 'assets/categories.svg';
 import ProductsImage from 'assets/products.svg';
 import RecommendedImage from 'assets/recommended.svg';
 import ShopImage from 'assets/shops.svg';
-import Products from 'data.json';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = (): JSX.Element => {
 	const history = useHistory();
 	const limit = 6;
 	const [start, setStart] = useState(0);
 	const [end, setEnd] = useState(limit);
-	const [allProducts, setAllProducts] = useState(Products.slice(start, end));
+
+	const { products } = useSelector((state: any) => state);
+
+	const [allProducts, setAllProducts] = useState(products.slice(start, end));
 
 	const [visible, setVisible] = useState(true);
 
 	const getMoreData = () => {
-		if (allProducts.length === Products.length) {
+		if (allProducts.length === products.length) {
 			setVisible(false);
 		} else {
 			const newStart = start + limit;
 			const newEnd = end + limit;
 
-			setAllProducts([...allProducts, ...Products.slice(newStart, newEnd)]);
+			setAllProducts([...allProducts, ...products.slice(newStart, newEnd)]);
 
 			setStart(newStart);
 			setEnd(newEnd);
@@ -107,7 +110,7 @@ const Home = (): JSX.Element => {
 						</div>
 
 						<div className={styles.container__main__details__container}>
-							{allProducts.map(({ image, description, stock, price, id }, index) => (
+							{allProducts.map(({ image, description, stock, price, id }: any, index: number) => (
 								<div
 									className={styles.container__main__details__container__item}
 									key={index}
