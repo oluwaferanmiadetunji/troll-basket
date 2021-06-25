@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { LeftOutlined, DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { clearCart, setCart } from '../../redux';
 import { ROUTES } from 'utils/constants';
+import { toast } from 'react-toastify';
 
 const Product = () => {
 	const history = useHistory();
@@ -26,20 +27,33 @@ const Product = () => {
 		}
 		let sum = 0;
 		for (let i = 0; i < cart.length; i++) {
-			sum += parseFloat(cart[i].price);
+			const price = parseFloat(cart[i].price) * cart[i].qty;
+			sum += price;
 		}
 		return sum;
 	};
 
-	const changeQTY = (id: string, type: string) => {
-		if (type === MINUS) {
-		} else {
-		}
-	};
-
 	const deleteItem = (id: string) => {
+		toast.success('Item removed from cart');
 		const newCart = cart.filter((item: any) => item.id !== id);
 
+		dispatch(setCart(newCart));
+	};
+
+	const changeQTY = (id: string, type: string) => {
+		let newCart = [...cart];
+		const item = cart.find((item: any) => item.id === id);
+		const positionOfItem = newCart.indexOf(item);
+		const cartItem = newCart[positionOfItem];
+		const { qty } = cartItem;
+		if (type === MINUS) {
+			if (qty === 1) {
+				return deleteItem(id);
+			}
+			newCart[positionOfItem] = { ...cartItem, qty: qty - 1 };
+		} else {
+			newCart[positionOfItem] = { ...cartItem, qty: qty + 1 };
+		}
 		dispatch(setCart(newCart));
 	};
 
