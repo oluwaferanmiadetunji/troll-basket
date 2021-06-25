@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import UserImage from 'assets/user.svg';
 import { setCart } from '../../redux';
 import { toast } from 'react-toastify';
+import { ROUTES } from 'utils/constants';
 
 const Product = () => {
 	const history = useHistory();
@@ -50,7 +51,7 @@ const Product = () => {
 						<SearchOutlined className={styles.container__header__icon__icon} />
 					</div>
 
-					<div className={clsx(styles.container__header__icon, styles.container__header__cart__icon)}>
+					<div className={clsx(styles.container__header__icon, styles.container__header__cart__icon)} onClick={() => history.push(ROUTES.CART)}>
 						<ShoppingCartOutlined className={styles.container__header__icon__icon} />
 						<div>
 							<span className={styles.container__header__cart__icon__text}>{cart.length}</span>
